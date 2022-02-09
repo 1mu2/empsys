@@ -1,0 +1,63 @@
+#application.yml
+spring:
+  application:
+    name: springboot-empsys
+  thymeleaf:
+#    prefix: classpath:/templates
+    cache: false
+    encoding: utf-8
+  # \u70ED\u90E8\u7F72, \u4FEE\u6539\u7C7B\u548C\u8D44\u6E90\u65F6\u4E0D\u91CD\u542F\u670D\u52A1
+  devtools:
+    restart:
+      enabled: true  #\u8BBE\u7F6E\u5F00\u542F\u70ED\u90E8\u7F72
+      additional-paths: src/main/java  #\u91CD\u542F\u76EE\u5F55
+      exclude: static/**  #\u8BBE\u7F6Eclasspath\u4E0B static \u76EE\u5F55\u5185\u5BB9\u4FEE\u6539\u540E\u4E0D\u91CD\u542F\u3002\u4E00\u822C\u8BBE\u7F6E\u4E3A\u9759\u6001\u8D44\u6E90\u76EE\u5F55
+    freemarker:
+      cache: false  #\u9875\u9762\u4E0D\u52A0\u8F7D\u7F13\u5B58\uFF0C\u4FEE\u6539\u5373\u65F6\u751F\u6548
+  # \u7F29\u8FDB\u4E24\u683C\uFF0C\u914D\u7F6Ejdbc\u6570\u636E\u6E90
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/world
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: TutorialsHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+mybatis:
+#  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.lanqiao.empsys.model
+  mapper-locations: classpath:mappers/**/*.xml
+# \u5206\u9875
+pagehelper:
+  helperDialect: mysql
+  offsetAsPageNum: true
+  rowBoundsWithCount: true
+  reasonable: false
+  supportMethodsArguments: true
+  returnPageInfo: true
+  params: count=countSql
+# \u5F00\u653E\u6240\u6709\u7684 Web endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+# \u8F93\u51FA mybatis SQL\u65E5\u5FD7
+logging:
+  level:
+    root: INFO
+    com.lanqiao.empsys.dao: DEBUG
+    # \u65E5\u5FD7\u6587\u4EF6
+    #    path: /Users/jamesmac/projects/SpringBootProjects/springboot-tutorials
+#    file: tutorials.log
+  pattern:
+    file: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n"
+    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n"
+
