@@ -8,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-/**
- * @author 张建平
- * @createtime 2022/2/6 下午4:46
- */
+
 @Controller
 @Slf4j
 // @RequestMapping //springboot 针对多种请求方式提供了相应的注解：@GetMapping, @PostMapping, @PutMapping, @DeleteMapping
@@ -33,7 +30,7 @@ public class UserController {
         log.debug("" + logUser);
 
         if (logUser != null) { //success
-            return "employee/list"; // employee/list.html
+            return "redirect:/employees"; // employee/list.html
         }
         return "redirect:/";
     }
