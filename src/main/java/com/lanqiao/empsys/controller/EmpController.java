@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -27,9 +29,15 @@ public class EmpController {
             emp = (Emp) session.getAttribute("selective");
         }
         //查询
-        List<Emp> empList = empService.selectByActive(emp, pageNum, 5);
+        List<Emp> empList = empService.selectByActive(emp, pageNum, 3);
         //保存数据作用域
         model.addAttribute("empList",empList);
         return "employee/list";
+    }
+    @GetMapping("/employees/{empno}")
+    public String selectByNo(@PathVariable("empno") Integer empno,Model model){
+        Emp emp =empService.selectByPrimaryKey(empno);
+        model.addAttribute("emp",emp);
+        return "employee/updateForm";
     }
 }
